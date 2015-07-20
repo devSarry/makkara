@@ -1,0 +1,68 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Auth;
+use App\Post;
+use App\User;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
+class PostController extends Controller
+{
+
+    public function index()
+    {
+        $posts = Post::paginate(2);
+
+        /*set the path for the render function of the pagination links*/
+
+        $posts->setPath('posts');
+
+        return view('posts.show', ['posts' => $posts]) ;
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(Request $request)
+    {
+        $post = new Post($request->all());
+
+
+
+        Auth::user()->posts()->save($post);
+
+         /*$user = Auth::user()->id;
+
+            $post = new Post;
+
+            $post->title = $request->title;
+            $post->content = $request->post_content;
+
+
+            $post->user_id = $user;
+            $post->save();*/
+
+        return redirect('posts');
+
+    }
+
+    public function show(Post $post)
+    {
+/*        dd($post->with(array('comments' => function($query)
+        {
+            $query->with(array('author'));
+        }))->get());*/
+
+        //dd($post->with('comments.author')->where('user_id', 1)->get());
+
+        dd($post);
+
+        return view('posts.singlePost', ['post' => $post]);
+    }
+}

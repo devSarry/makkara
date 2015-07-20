@@ -1,0 +1,55 @@
+@extends('layout')
+
+@section('title','Create Post')
+
+@section('content')
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Post by {{ $post->user->name }}</div>
+                    <div class="panel-body">
+                        <h2>{{ $post->title }}</h2>
+                        <hr>
+                        <article> {{ $post->content }}</article>
+                    </div>
+                    @if(Auth::user())
+                        @include('posts.partials.form')
+                    @endif
+
+
+                    <div class="row">
+                        <h5 class="title col-sm-12">Comments <small>({{ $post->comments->count() }})</small></h5>
+                    </div>
+
+                    @if ($post->comments->count() > 0)
+                        @include('posts.partials.comments', ['post' => $post])
+                    @else
+                        <p>:'( no one has commented</p>
+                    @endif
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var $f = $('form');
+         $f.submit(function(event) {
+             $.ajax({
+                 type: $f.attr('method'),
+                 url: $f.attr('action'),
+                 data: $f.serialize(),
+                 success: function(data) {
+                     console.log(data);
+                     //$("#comments-list").prepend(data);
+                 }
+             });
+
+             event.preventDefault();
+         });
+    </script>
+@stop
