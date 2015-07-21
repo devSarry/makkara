@@ -8,7 +8,7 @@
 
             <ul class="comments row">
 
-                {{dd($post->rootComments)}}
+                {{$comment->content}}
 
                 @include('posts.partials._tree', ['comments' => $post->rootComments])
             </ul>

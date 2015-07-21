@@ -61,7 +61,7 @@ class PostController extends Controller
 
         //dd($post->with('comments.author')->where('user_id', 1)->get());
 
-        dd($post);
+        //dd($post);
 
         return view('posts.singlePost', ['post' => $post]);
     }
