@@ -15,7 +15,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::paginate(2);
+        $posts = Post::paginate(15);
 
         /*set the path for the render function of the pagination links*/
 
@@ -61,7 +61,7 @@ class PostController extends Controller
 
         //dd($post->with('comments.author')->where('user_id', 1)->get());
 
-        //dd($post);
+        dd($post);
 
         return view('posts.singlePost', ['post' => $post]);
     }

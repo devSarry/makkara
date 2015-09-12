@@ -42,7 +42,7 @@ class RouteServiceProvider extends ServiceProvider
 
             //dd(Post::with('comments')->where('slug', '=', $post)->get());
 
-            //return Post::with('comments.author')->get();
+            return Post::with('comments.author')->get();
         });
 
 

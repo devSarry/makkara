@@ -36,20 +36,8 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-        var $f = $('form');
-         $f.submit(function(event) {
-             $.ajax({
-                 type: $f.attr('method'),
-                 url: $f.attr('action'),
-                 data: $f.serialize(),
-                 success: function(data) {
-                     console.log(data);
-                     //$("#comments-list").prepend(data);
-                 }
-             });
+    @yield('foot')
+        <script src="{{ url('js/comments.js') }}"></script>
+    @stop
 
-             event.preventDefault();
-         });
-    </script>
 @stop

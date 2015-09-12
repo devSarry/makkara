@@ -1,0 +1,38 @@
+body {
+  background-color: #f9f9f9; }
+
+.navbar {
+  background: fff;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.08), 1px 1px 1px rgba(0, 0, 0, 0.02);
+  border-radius: 0;
+  border: 0;
+  margin-bottom: 0; }
+
+.post:first-child {
+  margin-top: 3rem; }
+
+.post {
+  margin-top: 1rem; }
+  .post-body {
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.08), 1px 1px 1px rgba(0, 0, 0, 0.02);
+    padding: 1rem 2rem 2rem;
+    background-color: white; }
+  .post-title {
+    margin: 2rem 0 4rem; }
+  .post-content {
+    margin: 0; }
+
+.content-head {
+  background-color: #eee;
+  padding: 3rem 0; }
+  .content-head-heading {
+    margin: 0; }
+
+.footer {
+  padding: 4rem 0; }
+
+@media (min-width: 768px) {
+  .navbar-nav {
+    float: right; } }
+
+/*# sourceMappingURL=app.css.map */
