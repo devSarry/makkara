@@ -53,17 +53,21 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     /**
      * A user can vote on a post.
      *
-     * @param int $value
+     * @param string $value
      * @param \App\Post $post
+     * @return bool
      */
     public function vote($value, Post $post)
     {
-        switch ($value){
-            case 1;
+        switch ($value)
+        {
+            case "Vote up";
                 return $this->voteUp($post);
-            case -1;
+            case "Vote down";
                 return $this->voteDown($post);
         }
+
+        return false;
 
     }
 
@@ -75,19 +79,21 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function voteUp(Post $post)
     {
-        if( ! $this->hasVotedOnPost($post)  ) {
+        if ( ! $this->hasVotedOnPost($post))
+        {
             $this->votes()->create(['post_id' => $post->id, 'value' => 1]);
 
-            return true;
+            return TRUE;
         }
 
-        if ( $this->hasVotedOnPost($post) && $this->postVote($post) == -1 ) {
+        if ($this->hasVotedOnPost($post) && $this->postVote($post) == - 1)
+        {
             $this->votes()->update(['post_id' => $post->id, 'value' => 1]);
 
-            return true;
+            return TRUE;
         }
 
-        return false;
+        return FALSE;
     }
 
     /**
@@ -98,19 +104,20 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function voteDown(Post $post)
     {
-        if( ! $this->hasVotedOnPost($post) ) {
-            $this->votes()->create(['post_id' => $post->id, 'value' => -1]);
+        if ( ! $this->hasVotedOnPost($post))
+        {
+            $this->votes()->create(['post_id' => $post->id, 'value' => - 1]);
 
-            return true;
+            return TRUE;
+        } elseif ($this->hasVotedOnPost($post) && $this->postVote($post) == 1)
+        {
+
+            $this->votes()->update(['post_id' => $post->id, 'value' => - 1]);
+
+            return TRUE;
         }
 
-        if(  $this->hasVotedOnPost($post) && $this->postVote($post) == 1) {
-            $this->votes()->create(['post_id' => $post->id, 'value' => -1]);
-
-            return true;
-        }
-
-        return false;
+        return FALSE;
     }
 
 
@@ -123,7 +130,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function hasVotedOnPost(Post $post)
     {
         return (bool)$post->votes()->
-                where('user_id', '=', $this->id)->count();
+        where('user_id', '=', $this->id)->count();
     }
 
     /**
@@ -135,6 +142,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function postVote(Post $post)
     {
         return $post->votes()->
-                where('user_id', '=', $this->id)->first()->value;
+        where('user_id', '=', $this->id)->first()->value;
     }
 }

@@ -9,20 +9,18 @@
             <div class="col-xs-12 col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">Post by {{ $post->user->name }}</div>
-                    <div class="panel-body">
-                        <h2>{{ $post->title }}</h2>
-                        <hr>
-                        <article> {{ $post->content }}</article>
-                        {!! Form::open(array(action('PostController@vote', $post->slug))) !!}
-                        <!--- vote up Field --->
-                        <div class="form-group">
-                            {!! Form::submit('Vote up', ['class' => 'btn btn-primary', 'name' => 'value', 'value' => 1]) !!}
+                        <div class="row">
+                            <div class="col-md-2 panel-body">
+                                @include('posts.partials.voteBlock')
+                            </div>
+                            <div class="col-md-10 panel-body">
+
+                                <h2>{{ $post->title }}</h2>
+                                <hr>
+                                <article> {{ $post->content }}</article>
+
+                            </div>
                         </div>
-                        {!! Form::close() !!}
-
-
-                        <a href="{{action('PostController@vote', $post->slug)}}">upvote</a>
-                    </div>
                     @if(Auth::user())
                         @include('posts.partials.form')
                     @endif

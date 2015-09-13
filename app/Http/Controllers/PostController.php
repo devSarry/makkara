@@ -69,7 +69,8 @@ class PostController extends Controller
 
     public function vote(Post $post, Request $request)
     {
-        dd($request->all());
-        dd(Auth::user()->vote($request->input('value'), $post));
+        Auth::user()->vote($request->input('value'), $post);
+
+        return redirect()->back();
     }
 }
