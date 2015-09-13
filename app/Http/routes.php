@@ -69,6 +69,8 @@ Route::group(array('prefix' => 'posts/{post}'), function() {
     Route::resource('comments', 'CommentController',
         array('only' => array('index', 'store', 'destroy')));
 
+    Route::post('comments/child/{parentId}', 'CommentController@storeChild');
+
 });
 
 

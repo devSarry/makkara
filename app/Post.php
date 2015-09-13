@@ -117,6 +117,11 @@ class Post extends Model implements SluggableInterface {
         return $this->votes()->sum('value');
     }
 
+    public function scopePopular($query)
+    {
+        return $query;
+    }
+
 
     /**
      * Return the value of a users vote on a post.

@@ -18,4 +18,30 @@
         <li><a>report</a></li>
         <li><a>permalink</a></li>
     </ul>
+
+    <div class="comment-form">
+
+        <div class="panel panel-body">
+            <hr/>
+            <h5>Write a new comment</h5>
+
+            {!! Form::open(array('method' => 'post',
+                                'action' => array('CommentController@storeChild', $post->slug, $comment))) !!}
+
+                    <!--Comment Field
+        Form::text('name : String', 'default : String', params : array) -->
+            <div class="form-group">
+                {!! Form::label('comment', 'Comment: ') !!}
+                {!! Form::text('comment',null, ['class' => 'form-control']) !!}
+            </div>
+
+            <!--- submit Comment Field --->
+            <div class="form-group">
+                {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+            </div>
+
+            {!! Form::close() !!}
+        </div>
+
+    </div>
 </li>

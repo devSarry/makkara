@@ -6,6 +6,7 @@
     <div class="content-head" xmlns="http://www.w3.org/1999/html">
         <div class="container">
             <h1 class="content-head-heading">Posts</h1>
+
         </div>
     </div>
 

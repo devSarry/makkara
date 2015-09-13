@@ -53,6 +53,20 @@ class CommentController extends Controller
         return Response::json(array('success' => true));
     }
 
+    public function storeChild(Post $post, Request $request, $parentId)
+    {
+
+        /*fix parent id*/
+        Comment::create([
+            'user_id'   => \Auth::id(),
+            'post_id'   => $post->id,
+            'parent_id' => $parentId,
+            'content'   => $request->comment,
+        ]);
+
+        return Response::json(array('success' => true));
+    }
+
     /**
      * Display the specified resource.
      *
