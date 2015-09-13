@@ -17,9 +17,8 @@ class UserProfileController extends Controller
 
     public function index(User $user)
     {
-        dd($user);
 
-        $number_of_posts =  Auth::user()->posts()->getResults()->count();
+        $number_of_posts =  $user->posts()->count();
 
         return view('users.profile', ['number_of_posts' => $number_of_posts, 'user' => Auth::user()]);
     }

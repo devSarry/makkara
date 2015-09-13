@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
 use Response;
 use App\Comment;
@@ -34,16 +35,18 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     *
+     * @param  Request $request
      * @return Response
      */
-    public function store($post, Request $request)
+    public function store(Post $post, Request $request)
     {
+
         /*fix parent id*/
         Comment::create([
             'user_id'   => \Auth::id(),
             'post_id'   => $post->id,
-            'parent_id' => 1,
+            'parent_id' => $request->parentId,
             'content'   => $request->comment,
         ]);
 
@@ -90,8 +93,10 @@ class CommentController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Post $post, $id)
     {
-        //
+        Comment::destroy($id);
+
+        return Response::json(array('deleted' => true));
     }
 }

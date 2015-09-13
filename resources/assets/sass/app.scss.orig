@@ -1,0 +1,73 @@
+// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+<<<<<<< HEAD
+=======
+
+//Variables
+//Colors
+$colorMain:fff;
+$colorMainDark:#f9f9f9;
+$colorMainDarker:#eee;
+
+
+//Box
+$boxS1:(1px 1px 1px rgba(0,0,0,0.08), 1px 1px 1px rgba(0,0,0,0.02));
+
+
+//res
+//temp bs fix
+$resBreak:768px;
+
+body{
+  background-color: $colorMainDark;
+}
+
+//override bs defaults->move to bs-file
+.navbar{
+  background: $colorMain;
+  box-shadow: $boxS1;
+  border-radius: 0;
+  border: 0;
+  margin-bottom: 0;
+}
+
+
+.post:first-child{
+  margin-top: 3rem;
+}
+.post{
+  margin-top: 1rem;
+  &-body{
+    box-shadow: $boxS1;
+    padding: 1rem 2rem 2rem;
+    background-color: white;
+  }
+  &-title{
+    margin: 2rem 0 4rem;
+  }
+  &-content{
+    margin: 0;
+  }
+}
+
+.content{
+  &-head{
+    background-color: $colorMainDarker;
+    padding: 3rem 0;
+    &-heading{
+        margin: 0;
+    }
+  }
+}
+
+.footer{
+  padding: 4rem 0;
+}
+
+//temp bs fix
+@media(min-width: $resBreak) {
+  .navbar-nav{
+    float: right;
+  }
+}
+>>>>>>> new views

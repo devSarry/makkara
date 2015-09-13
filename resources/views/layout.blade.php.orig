@@ -1,0 +1,58 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+      <meta charset="utf-8">
+
+      <title>@yield('title')</title>
+      <meta name="description" content="Document">
+      <meta name="author" content="Jonathan Sarry">
+
+    <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<<<<<<< HEAD
+=======
+        <!-- link -->
+        <link rel="stylesheet" href="{{url('/css/app.css')}}">
+>>>>>>> new views
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    </head>
+
+    <body>
+
+
+<<<<<<< HEAD
+    <div class="container">
+=======
+    <div class="page">
+>>>>>>> new views
+
+        <!--Header Nav Bar -->
+            @include('includes.header')
+        <!--/Header Nav Bar -->
+
+<<<<<<< HEAD
+            <div id="main" class="row">
+=======
+            <div id="main" class="main">
+>>>>>>> new views
+
+                @yield('content')
+
+            </div>
+<<<<<<< HEAD
+
+=======
+        @yield('foot')
+>>>>>>> new views
+        <!--Footer Bar -->
+            @include('includes.footer')
+        <!--/Footer Bar -->
+
+    </div>
+
+    </body>
+</html>

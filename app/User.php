@@ -10,8 +10,8 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract
-{
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
+
     use Authenticatable, CanResetPassword;
 
     /**
@@ -38,5 +38,103 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function posts()
     {
         return $this->hasMany('App\Post');
+    }
+
+    /**
+     * A user has many votes. If you want to see all the votes a user has made
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function votes()
+    {
+        return $this->hasMany('App\PostVote');
+    }
+
+    /**
+     * A user can vote on a post.
+     *
+     * @param int $value
+     * @param \App\Post $post
+     */
+    public function vote($value, Post $post)
+    {
+        switch ($value){
+            case 1;
+                return $this->voteUp($post);
+            case -1;
+                return $this->voteDown($post);
+        }
+
+    }
+
+    /**
+     * A user can give a post an upvote
+     *
+     * @param \App\Post $post
+     * @return bool
+     */
+    public function voteUp(Post $post)
+    {
+        if( ! $this->hasVotedOnPost($post)  ) {
+            $this->votes()->create(['post_id' => $post->id, 'value' => 1]);
+
+            return true;
+        }
+
+        if ( $this->hasVotedOnPost($post) && $this->postVote($post) == -1 ) {
+            $this->votes()->update(['post_id' => $post->id, 'value' => 1]);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * A user can give a post a down vote.
+     *
+     * @param \App\Post $post
+     * @return bool
+     */
+    public function voteDown(Post $post)
+    {
+        if( ! $this->hasVotedOnPost($post) ) {
+            $this->votes()->create(['post_id' => $post->id, 'value' => -1]);
+
+            return true;
+        }
+
+        if(  $this->hasVotedOnPost($post) && $this->postVote($post) == 1) {
+            $this->votes()->create(['post_id' => $post->id, 'value' => -1]);
+
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Check to see if a user has voted on a post already
+     *
+     * @param \App\Post $post
+     * @return bool
+     */
+    public function hasVotedOnPost(Post $post)
+    {
+        return (bool)$post->votes()->
+                where('user_id', '=', $this->id)->count();
+    }
+
+    /**
+     * Return the value of a users vote on a post.
+     *
+     * @param \App\Post $post
+     * @return mixed
+     */
+    public function postVote(Post $post)
+    {
+        return $post->votes()->
+                where('user_id', '=', $this->id)->first()->value;
     }
 }

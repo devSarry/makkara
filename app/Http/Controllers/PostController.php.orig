@@ -9,18 +9,17 @@ use App\User;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Input;
 
 class PostController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth', ['only' => ['vote', 'create', 'store']]);
-    }
     public function index()
     {
+<<<<<<< HEAD
+        $posts = Post::paginate(2);
+=======
         $posts = Post::paginate(15);
+>>>>>>> new views
 
         /*set the path for the render function of the pagination links*/
 
@@ -34,14 +33,10 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
     public function store(Request $request)
     {
+        $post = new Post($request->all());
 
-        $post = new Post($request->input());
 
 
         Auth::user()->posts()->save($post);
@@ -63,13 +58,19 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        //dd($post->user()->first()->hasVotedOnPost($post));
-        return view('posts.singlePost', ['post' => $post]);
-    }
+/*        dd($post->with(array('comments' => function($query)
+        {
+            $query->with(array('author'));
+        }))->get());*/
 
-    public function vote(Post $post, Request $request)
-    {
-        dd($request->all());
-        dd(Auth::user()->vote($request->input('value'), $post));
+        //dd($post->with('comments.author')->where('user_id', 1)->get());
+
+<<<<<<< HEAD
+        //dd($post);
+=======
+        dd($post);
+>>>>>>> new views
+
+        return view('posts.singlePost', ['post' => $post]);
     }
 }
